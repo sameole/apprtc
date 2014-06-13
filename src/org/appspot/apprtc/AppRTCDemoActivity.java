@@ -112,6 +112,7 @@ public class AppRTCDemoActivity extends Activity
   private VideoTrack m_currentVideoTrack;
   private VideoRenderer m_localVideoRenderer;
   private AudioTrack  m_audioTrack;
+  private Boolean m_offerCreated = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -755,8 +756,12 @@ public class AppRTCDemoActivity extends Activity
       if (!appRtcClient.isInitiator()) {
         return;
       }
-      logAndToast("Creating offer...");
-      pc.createOffer(sdpObserver, sdpMediaConstraints);
+      //pc.createOffer(sdpObserver, sdpMediaConstraints);
+	  if(m_offerCreated == false){
+	    logAndToast("Creating offer...");
+		pc.createOffer(sdpObserver, sdpMediaConstraints);
+		m_offerCreated = true;
+	  }
     }
 
     @JavascriptInterface public void onMessage(String data) {
