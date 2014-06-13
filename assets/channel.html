@@ -20,7 +20,7 @@
 
       function openSocket() {
         //channel = new goog.appengine.Channel(token);
-    	SockJSClient.connect_subscribe_chanel("115.28.172.76:2013",user,channel);
+    	SockJSClient.connect_subscribe_chanel("sockjs_svr_addr",user,channel);
     	SockJSClient.event_handler_binder("open",onChannelOpened);
     	SockJSClient.event_handler_binder("message",onChannelMessage);
     	SockJSClient.event_handler_binder("close",onChannelClosed);
