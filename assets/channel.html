@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="./sockjs-0.3.min.js"></script>
+    <script src="./sockjs_client_wrapper.js"></script>
+  </head>
+  <!--
+  Helper HTML that redirects Google AppEngine's Channel API to a JS object named
+  |androidMessageHandler|, which is expected to be injected into the WebView
+  rendering this page by an Android app's class such as AppRTCClient.
+  -->
+  <body onbeforeunload="closeSocket()" onload="openSocket()">
+    <script type="text/javascript">
+      var user = androidMessageHandler.getUser();
+      var channel = androidMessageHandler.getChannel();      
+      if (!token)
+        throw "Missing/malformed token parameter: [" + token + "]";
+
+      var channel = null;
+      var socket = null;
+
+      function openSocket() {
+        //channel = new goog.appengine.Channel(token);
+    	SockJSClient.connect_subscribe_chanel("115.28.172.76:2013",user,channel);
+    	SockJSClient.event_handler_binder("open",onChannelOpened);
+    	SockJSClient.event_handler_binder("message",onChannelMessage);
+    	SockJSClient.event_handler_binder("close",onChannelClosed);
+    	SockJSClient.event_handler_binder("error",onChannelError);
+    	socket = SockJSClient;
+        /*socket = channel.open({
+          'onopen': function() { androidMessageHandler.onOpen(); },
+          'onmessage': function(msg) { androidMessageHandler.onMessage(msg.data); },
+          'onclose': function() { androidMessageHandler.onClose(); },
+          'onerror': function(err) { androidMessageHandler.onError(err.code, err.description); }
+        });*/
+      }
+
+      function closeSocket() {
+        socket.close();
+      }
+      
+      function onChannelOpened() {
+    	  console.log('Channel opened.');
+    	  androidMessageHandler.onOpen();
+    	}
+      
+      function onChannelMessage(message) {
+    	  androidMessageHandler.onMessage(message);
+      }
+      
+      function onChannelClosed() {
+    	  console.log('Channel closed.');
+    	  androidMessageHandler.onClose();
+    	}
+      
+      function onChannelError(){
+    	  console.log('Channel error.');
+      }
+    </script>
+  </body>
+</html>
