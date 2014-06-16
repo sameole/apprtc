@@ -795,7 +795,7 @@ public class AppRTCDemoActivity extends Activity
     }
 
     @JavascriptInterface public void onClose() {
-      disconnectAndExit();
+      //disconnectAndExit();
     }
 
     @JavascriptInterface public void onError(int code, String description) {
