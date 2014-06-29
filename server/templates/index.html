@@ -40,7 +40,7 @@
   var sockjs_server = 'the deployed server address/connect';
   var audio_send_codec = '{{ params['audio_send_codec'] }}';
   var audio_receive_codec = '{{ params['audio_receive_codec'] }}';
-  var pcConfig = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'},{'credential': 'lsxu', 'urls': 'turn:lsxu@115.28.172.76'}]};
+  var pcConfig = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'},{turn_server_setting}]};
   setTimeout(initialize, 1);
 </script>
 <footer id="status">
