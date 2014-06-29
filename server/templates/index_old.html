@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WebRTC Reference App</title>
+<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+<link rel="stylesheet" href="/static/css/main.css" />
+<script src="/static/js/sockjs-0.3.min.js"></script>
+<script src="/static/js/sockjs_client_wrapper.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/adapter.js"></script>
+</head>
+<body>
+<div id="container" ondblclick="enterFullScreen()">
+  <div id="card">
+    <div id="local">
+      <video id="localVideo" autoplay="autoplay" muted="true"/>
+    </div>
+    <div id="remote">
+      <video id="remoteVideo" autoplay="autoplay">
+      </video>
+      <div id="mini">
+        <video id="miniVideo" autoplay="autoplay" muted="true"/>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+  var errorMessages = {{ params['error_messages'] }};
+  var me = {{ params['me'] }};
+  var channelToken = '{{ params['channel'] }}';
+  var roomLink = '{{ params['channel'] }}';
+  var channel = '{{ params['channel'] }}';
+  var initiator = {{ params['initiator'] }};
+  var pcConstraints = {"optional": []};
+  var offerConstraints = {"optional": [], "mandatory": {}};
+  var mediaConstraints = {"audio": true, "video": true};
+  var turnUrl = '{{ params['turn_url'] }}';
+  var stereo = {{ params['stereo'] }};
+  var audio_send_codec = '{{ params['audio_send_codec'] }}';
+  var audio_receive_codec = '{{ params['audio_receive_codec'] }}';
+  var pcConfig = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'},{'credential': 'lsxu', 'urls': 'turn:lsxu@115.28.172.76'}]};
+  setTimeout(initialize, 1);
+</script>
+<footer id="status">
+</footer>
+<div id="infoDiv"></div>
+</html>
